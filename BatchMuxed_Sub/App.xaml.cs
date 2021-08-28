@@ -7,6 +7,7 @@ namespace BatchMuxer_Sub
     {
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<Config>();
             //containerRegistry.RegisterDialog<DialogControl, DialogControlViewModel>("MessageBox");
         }
 

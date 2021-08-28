@@ -120,4 +120,34 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="AutoCleanMedia" xml:space="preserve">
+    <value>Auto clean media?</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="Configuration" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="EnterMkvMergePath" xml:space="preserve">
+    <value>Enter MKVMerge path where 'mkvmerge.exe' is present (ex: C:\\mkvtoolnix-64-bit-49.0.0\mkvtoolnix)</value>
+  </data>
+  <data name="MkvMergeExeNotFound" xml:space="preserve">
+    <value>mkvmerge.exe not found in this directory</value>
+  </data>
+  <data name="MkvMergePath" xml:space="preserve">
+    <value>MKVMerge Path</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SelectMkvMergePath" xml:space="preserve">
+    <value>Select Path of mkvmerge.exe</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SubtitleLanguage" xml:space="preserve">
+    <value>Subtitle Language</value>
+  </data>
 </root>

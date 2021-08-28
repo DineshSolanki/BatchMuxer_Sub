@@ -68,5 +68,95 @@ namespace BatchMuxer_Sub.Properties {
                 return ResourceManager.GetString("About", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto clean media?.
+        /// </summary>
+        internal static string AutoCleanMedia {
+            get {
+                return ResourceManager.GetString("AutoCleanMedia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        internal static string Browse {
+            get {
+                return ResourceManager.GetString("Browse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configuration.
+        /// </summary>
+        internal static string Configuration {
+            get {
+                return ResourceManager.GetString("Configuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter MKVMerge path where &apos;mkvmerge.exe&apos; is present (ex: C:\\mkvtoolnix-64-bit-49.0.0\mkvtoolnix).
+        /// </summary>
+        internal static string EnterMkvMergePath {
+            get {
+                return ResourceManager.GetString("EnterMkvMergePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mkvmerge.exe not found in this directory.
+        /// </summary>
+        internal static string MkvMergeExeNotFound {
+            get {
+                return ResourceManager.GetString("MkvMergeExeNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MKVMerge Path.
+        /// </summary>
+        internal static string MkvMergePath {
+            get {
+                return ResourceManager.GetString("MkvMergePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Path of mkvmerge.exe.
+        /// </summary>
+        internal static string SelectMkvMergePath {
+            get {
+                return ResourceManager.GetString("SelectMkvMergePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subtitle Language.
+        /// </summary>
+        internal static string SubtitleLanguage {
+            get {
+                return ResourceManager.GetString("SubtitleLanguage", resourceCulture);
+            }
+        }
     }
 }

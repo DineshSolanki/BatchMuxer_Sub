@@ -1,4 +1,7 @@
-﻿namespace BatchMuxer_Sub.Views
+﻿using System.IO;
+using HandyControl.Data;
+
+namespace BatchMuxer_Sub.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

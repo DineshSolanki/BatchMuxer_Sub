@@ -3,7 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/" 
              xmlns:hc ="https://handyorg.github.io/handycontrol"
+             xmlns:viewModels="clr-namespace:BatchMuxer_Sub.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
              WindowStartupLocation="CenterScreen"
+             Title="{Binding Title}"
              Style="{StaticResource WindowWin10}"
              ShowTitle="True"
              Height="450"
@@ -12,20 +17,10 @@
     <hc:Window.NonClientAreaContent>
         <StackPanel Height="29">
             <Menu HorizontalAlignment="Left">
-                <MenuItem Header="Header1">
-                    <MenuItem Header="Header1"/>
-                    <MenuItem Header="Header2"/>
-                    <MenuItem Header="Header2"/>
-                </MenuItem>
-                <MenuItem Header="Header2">
-                    <MenuItem Header="Header1"/>
-                    <MenuItem Header="Header2"/>
-                    <MenuItem Header="Header2"/>
-                </MenuItem>
-                <MenuItem Header="Header3">
-                    <MenuItem Header="Header1"/>
-                    <MenuItem Header="Header2"/>
-                    <MenuItem Header="Header2"/>
+                <MenuItem Header="Configuration">
+                    <MenuItem Header="Settings" Command="{Binding NavigateCommand}" CommandParameter="Config"/>
+                    <MenuItem Header="Auto clean media?" ToolTip="This will auto delete the original subtitle and media"
+                              IsCheckable="True" IsChecked="{Binding IsAutoClean}"/>
                 </MenuItem>
             </Menu>
         </StackPanel>

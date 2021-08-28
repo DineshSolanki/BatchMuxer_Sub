@@ -5,12 +5,12 @@ using System.Windows.Data;
 using BatchMuxer_Sub.Properties;
 using HandyControl.Tools;
 
-namespace BatchMuxer_Sub.Modules
+namespace BatchMuxer_Sub.Properties.Langs
 {
-    class LangProvider:INotifyPropertyChanged
+    class LangProvider : INotifyPropertyChanged
 
     {
-        private static string _cultureInfoStr;
+        private static string? _cultureInfoStr;
         internal static LangProvider Instance => ResourceHelper.GetResource<LangProvider>("BatchMuxLangs");
         public static string GetLang(string key) => Lang.ResourceManager.GetString(key, Culture);
 
@@ -39,16 +39,23 @@ namespace BatchMuxer_Sub.Modules
         private void UpdateLangs()
         {
             OnPropertyChanged(nameof(About));
+            OnPropertyChanged(nameof(MkvMergePath));
+            OnPropertyChanged(nameof(EnterMkvMergePath));
         }
         public string About => Lang.About;
-        public event PropertyChangedEventHandler PropertyChanged;
+        public string MkvMergePath => Lang.MkvMergePath;
+        public string EnterMkvMergePath => Lang.EnterMkvMergePath;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        public class LangKeys
+        protected virtual void OnPropertyChanged(string propertyName)
         {
-            public static string About = nameof(About);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+    }
+    public class LangKeys
+    {
+        public static string About = nameof(About);
+        public static string MkvMergePath = nameof(MkvMergePath);
+        public static string EnterMkvMergePath = nameof(EnterMkvMergePath);
     }
 }
