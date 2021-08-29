@@ -9,16 +9,45 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:HomeWindowViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <hc:SimpleStackPanel>
-
-        <hc:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <hc:TextBox x:Name="txtMediaPath" hc:TitleElement.Title="Media Path" hc:TitleElement.TitlePlacement="Left"
-                        Margin="20"
-                        hc:InfoElement.Placeholder="Enter path where video and subtitle files are located." 
-                        hc:InfoElement.Necessary="True" Text="{Binding MediaPath}"/>
-            <Button Content="Browse" Command="{Binding BrowseForMediaPath}"/>
+    <hc:BusyIndicator IsBusy="{Binding IsBusy}">
+        <hc:BusyIndicator.BusyContentTemplate>
+            <DataTemplate>
+                <StackPanel Margin="4" HorizontalAlignment="Stretch">
+                    <!--<TextBlock Text="Merging Subtitles and media file" FontWeight="Bold" HorizontalAlignment="Stretch"/>-->
+                    <StackPanel Margin="4">
+                        <TextBlock FontWeight="Bold">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Last Completed task:{0}">
+                                    <Binding Path="DataContext.CmdOutput" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <ProgressBar Style="{DynamicResource ProgressBarInfo}"
+                                     Value="{Binding Path=DataContext.CompletedTasks,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                     Maximum="{Binding Path=DataContext.TotalTasks,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                     Height="15" />
+                    </StackPanel>
+                    <Grid>
+                        <Button Content="Cancel" HorizontalAlignment="Center" Margin="2 0 0 0"/>
+                    </Grid>
+                </StackPanel>
+            </DataTemplate>
+        </hc:BusyIndicator.BusyContentTemplate>
+        <hc:BusyIndicator.ProgressBarStyle>
+            <Style TargetType="ProgressBar">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </Style>
+        </hc:BusyIndicator.ProgressBarStyle>
+        <hc:SimpleStackPanel>
+            <hc:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <hc:TextBox x:Name="txtMediaPath" hc:TitleElement.Title="Media Path" hc:TitleElement.TitlePlacement="Left"
+                            Margin="20"
+                            hc:InfoElement.Placeholder="Enter path where video and subtitle files are located." 
+                            hc:InfoElement.Necessary="True" Text="{Binding MediaPath}"/>
+                <Button Content="Browse" Command="{Binding BrowseForMediaPath}"/>
+            </hc:SimpleStackPanel>
+            <Button Content="Start Muxing/Merging" Command="{Binding StartMuxCommand}"
+                    IsEnabled="{Binding Path=IsError, ElementName=txtMediaPath, Converter={StaticResource Boolean2BooleanReConverter}}"/>
         </hc:SimpleStackPanel>
-        <Button Content="Start Muxing/Merging" Command="{Binding StartMuxCommand}"
-                IsEnabled="{Binding Path=IsError, ElementName=txtMediaPath, Converter={StaticResource Boolean2BooleanReConverter}}"/>
-    </hc:SimpleStackPanel>
+    </hc:BusyIndicator>
 </UserControl>

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BatchMuxer_Sub.ProcessUtil;
 using HandyControl.Tools;
 using Ookii.Dialogs.Wpf;
 
@@ -75,7 +76,7 @@ namespace BatchMuxer_Sub.Modules
             return hasRenamed;
         }
 
-        public static void ProcessFile(FileInfo fi, string path, ref string outputRedirect)
+        public static void ProcessFile(FileInfo fi, string path, Action<object, DataReceivedEventArgs> outputHandler)
         {
             var subtitle = fi.Name.Replace(fi.Extension, ".srt");
             if (!File.Exists(Path.Combine(path, subtitle)) || File.Exists(Path.Combine(path, "muxed", fi.Name))) return;
@@ -84,23 +85,40 @@ namespace BatchMuxer_Sub.Modules
             var oStartInfo = new ProcessStartInfo("CMD.EXE")
             {
                 WorkingDirectory = path,
-
                 Arguments =
                     $@"/c """"{Settings.MkvMergePath}"" -o {output} --default-track 0 --language 0:{Settings.SubtitleCode} ""{subtitle}"" ""{fi.Name}""",
                 CreateNoWindow = true,
                 RedirectStandardOutput = true,
+                RedirectStandardError = true,
                 UseShellExecute = false
             };
+            oProcess.OutputDataReceived += new DataReceivedEventHandler(outputHandler);
+            oProcess.ErrorDataReceived += new DataReceivedEventHandler(outputHandler);
             oProcess.StartInfo = oStartInfo;
             oProcess.Start();
-            NewTaskDialog(ref outputRedirect).Show();
-            while (!oProcess.StandardOutput.EndOfStream)
-            {
-                var line = oProcess.StandardOutput.ReadLine();
-                outputRedirect = $"{outputRedirect}\n{line}";
-            }
-            
+            oProcess.BeginOutputReadLine();
+            oProcess.BeginErrorReadLine();
             oProcess.WaitForExit();
+        }
+
+        public static async Task<ProcessResult> ProcessFileAsync(FileInfo fi, string path, ProcessOutputReader.TextEventHandler? outputHandler = null)
+        {
+            var subtitle = fi.Name.Replace(fi.Extension, ".srt");
+            if (!File.Exists(Path.Combine(path, subtitle)) || File.Exists(Path.Combine(path, "muxed", fi.Name))) return null;
+            var output = $@"""{Path.Combine(path, "muxed", fi.Name)}""";
+            ProcessStarter p = new();
+            ProcessSettings ps = new()
+            {
+                FileName = "CMD.EXE",
+                WorkingDirectory = path,
+                Arguments = $@"/c """"{Settings.MkvMergePath}"" -o {output} --default-track 0 --language 0:{Settings.SubtitleCode} ""{subtitle}"" ""{fi.Name}""",
+                ReadOutput = true,
+                AdditionalInfo = fi.Name
+            };
+            if (outputHandler is null) return await p.ExecuteAsync(ps);
+            ProcessOutputReader por = new();
+            por.OutputChanged += outputHandler;
+            return await p.ExecuteAsync(ps, por);
         }
     }
 }

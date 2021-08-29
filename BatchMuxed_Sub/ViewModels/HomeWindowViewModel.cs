@@ -3,12 +3,15 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Prism.Regions;
 using BatchMuxer_Sub.Modules;
+using BatchMuxer_Sub.ProcessUtil;
 using HandyControl.Tools;
 using HandyControl.Tools.Extension;
 
@@ -18,15 +21,38 @@ namespace BatchMuxer_Sub.ViewModels
     {
         private readonly IRegionManager _regionManager;
         private static readonly string[] Extensions = { ".mkv", ".webm", ".mp4" };
-        private string _mkvMergePath="";
+        private string _mkvMergePath = "";
         public string MkvMergePath { get => _mkvMergePath; set => SetProperty(ref _mkvMergePath, value); }
-        
+
         private string _languageCode;
 
-        public string CmdOutput;
+        private int _totalTasks;
+        public int TotalTasks
+        {
+            get => _totalTasks;
+            set => SetProperty(ref _totalTasks, value);
+        }
+
+        private int _completedTasks;
+        public int CompletedTasks
+        {
+            get => _completedTasks;
+            set => SetProperty(ref _completedTasks, value);
+        }
+
+        private string _cmdOutput;
+        public string CmdOutput
+        {
+            get => _cmdOutput;
+            set => SetProperty(ref _cmdOutput, value);
+        }
+
+        private bool _isBusy;
+        public bool IsBusy { get => _isBusy; set => SetProperty(ref _isBusy, value); }
+
         private string _mediaPath;
         public string MediaPath { get => _mediaPath; set => SetProperty(ref _mediaPath, value); }
-        
+
         public DelegateCommand BrowseForMediaPath { get; }
         public DelegateCommand StartMuxCommand { get; }
         private readonly AppConfig _settings = GlobalDataHelper.Load<AppConfig>();
@@ -39,21 +65,29 @@ namespace BatchMuxer_Sub.ViewModels
             StartMuxCommand = new DelegateCommand(StartMuxing);
         }
 
-        private void StartMuxing()
+        private async void StartMuxing()
         {
-            if (Path.GetFileName(MkvMergePath).ToLower() == "mkvmerge.exe" && File.Exists(MkvMergePath))
+            CompletedTasks = 0;
+            if (Path.GetFileName(MkvMergePath).ToLower() != "mkvmerge.exe" || !File.Exists(MkvMergePath)) return;
+            IsBusy = true;
+            var directoryInfo = MediaPath.ToDirectoryInfo();
+            var files = directoryInfo.EnumerateFiles()
+                .Where(f => Extensions.Contains(f.Extension.ToLower()))
+                .ToArray();
+            Util.RenameFiles(files);
+            var tasks = files.Select(fi => Util.ProcessFileAsync(fi, MediaPath)).ToList();
+            TotalTasks = tasks.Count;
+            tasks.ForEach(tsk => tsk.ContinueWith(taskinfo =>
             {
-                var directoryInfo = MediaPath.ToDirectoryInfo();
-                var files = directoryInfo.EnumerateFiles()
-                    .Where(f => Extensions.Contains(f.Extension.ToLower()))
-                    .ToArray();
-                Util.RenameFiles(files);
-                files.ForEach(fi =>{
-                    Util.ProcessFile(fi,MediaPath, ref CmdOutput);
-                });
+                if (taskinfo.Result?.AdditionalInfo is not null)
+                {
+                    CmdOutput = taskinfo.Result.AdditionalInfo;
+                }
                 
-            }
-            ;
+                CompletedTasks++;
+            }));
+            var __ = await Task.WhenAll(tasks); 
+            IsBusy = false;
 
         }
 
@@ -64,5 +98,7 @@ namespace BatchMuxer_Sub.ViewModels
             if (dialogResult != null && (bool)!dialogResult) return;
             MediaPath = folderBrowserDialog.SelectedPath;
         }
+
+
     }
 }
