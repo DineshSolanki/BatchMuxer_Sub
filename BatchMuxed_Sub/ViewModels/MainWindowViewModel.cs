@@ -23,6 +23,7 @@ namespace BatchMuxer_Sub.ViewModels
             _regionManager = regionManager;
             NavigateCommand = new DelegateCommand<string>(Navigate);
             IsAutoClean = _settings.IsAutoClean;
+            Navigate("Home");
         }
         private void Navigate(string navigatePath)
         {

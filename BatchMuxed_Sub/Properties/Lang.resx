@@ -138,14 +138,23 @@
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
+  <data name="EnterMediaAndSubtitlePath" xml:space="preserve">
+    <value>Enter path where video and subtitle files are located.</value>
+  </data>
   <data name="EnterMkvMergePath" xml:space="preserve">
     <value>Enter MKVMerge path where 'mkvmerge.exe' is present (ex: C:\\mkvtoolnix-64-bit-49.0.0\mkvtoolnix)</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="HideDetails" xml:space="preserve">
+    <value>Hide details</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="MediaPath" xml:space="preserve">
+    <value>Media Path</value>
   </data>
   <data name="MkvMergeExeNotFound" xml:space="preserve">
     <value>mkvmerge.exe not found in this directory</value>
@@ -164,6 +173,15 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="ShowDetails" xml:space="preserve">
+    <value>Show details</value>
+  </data>
+  <data name="StartMuxMerge" xml:space="preserve">
+    <value>Start Muxing/Merging</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Browse</value>
   </data>
   <data name="SubtitleLanguage" xml:space="preserve">
     <value>Subtitle Language</value>

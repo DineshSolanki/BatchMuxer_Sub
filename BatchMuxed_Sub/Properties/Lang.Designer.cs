@@ -124,6 +124,15 @@ namespace BatchMuxer_Sub.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter path where video and subtitle files are located..
+        /// </summary>
+        internal static string EnterMediaAndSubtitlePath {
+            get {
+                return ResourceManager.GetString("EnterMediaAndSubtitlePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter MKVMerge path where &apos;mkvmerge.exe&apos; is present (ex: C:\\mkvtoolnix-64-bit-49.0.0\mkvtoolnix).
         /// </summary>
         internal static string EnterMkvMergePath {
@@ -142,11 +151,29 @@ namespace BatchMuxer_Sub.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hide details.
+        /// </summary>
+        internal static string HideDetails {
+            get {
+                return ResourceManager.GetString("HideDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         internal static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Media Path.
+        /// </summary>
+        internal static string MediaPath {
+            get {
+                return ResourceManager.GetString("MediaPath", resourceCulture);
             }
         }
         
@@ -201,6 +228,33 @@ namespace BatchMuxer_Sub.Properties {
         internal static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show details.
+        /// </summary>
+        internal static string ShowDetails {
+            get {
+                return ResourceManager.GetString("ShowDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Muxing/Merging.
+        /// </summary>
+        internal static string StartMuxMerge {
+            get {
+                return ResourceManager.GetString("StartMuxMerge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        internal static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

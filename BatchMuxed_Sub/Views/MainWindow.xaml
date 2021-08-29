@@ -27,6 +27,6 @@
         </StackPanel>
     </hc:Window.NonClientAreaContent>
     <DockPanel>
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" Margin="5"  />
+        <ContentControl prism:RegionManager.RegionName="ContentRegion" Margin="5"/>
     </DockPanel>
 </hc:Window>

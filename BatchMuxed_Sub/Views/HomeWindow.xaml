@@ -1,9 +1,24 @@
 ﻿<UserControl x:Class="BatchMuxer_Sub.Views.HomeWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:prism="http://prismlibrary.com/"  
+             xmlns:hc ="https://handyorg.github.io/handycontrol"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:BatchMuxer_Sub.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModels:HomeWindowViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
-            
-    </Grid>
+    <hc:SimpleStackPanel>
+
+        <hc:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <hc:TextBox x:Name="txtMediaPath" hc:TitleElement.Title="Media Path" hc:TitleElement.TitlePlacement="Left"
+                        Margin="20"
+                        hc:InfoElement.Placeholder="Enter path where video and subtitle files are located." 
+                        hc:InfoElement.Necessary="True" Text="{Binding MediaPath}"/>
+            <Button Content="Browse" Command="{Binding BrowseForMediaPath}"/>
+        </hc:SimpleStackPanel>
+        <Button Content="Start Muxing/Merging" Command="{Binding StartMuxCommand}"
+                IsEnabled="{Binding Path=IsError, ElementName=txtMediaPath, Converter={StaticResource Boolean2BooleanReConverter}}"/>
+    </hc:SimpleStackPanel>
 </UserControl>
