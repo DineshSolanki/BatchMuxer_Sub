@@ -17,6 +17,7 @@
     <hc:Window.NonClientAreaContent>
         <StackPanel Height="29">
             <Menu HorizontalAlignment="Left">
+                <MenuItem Header="Home" Command="{Binding NavigateCommand}" CommandParameter="Home"/>
                 <MenuItem Header="Configuration">
                     <MenuItem Header="Settings" Command="{Binding NavigateCommand}" CommandParameter="Config"/>
                     <MenuItem Header="Auto clean media?" ToolTip="This will auto delete the original subtitle and media"

@@ -36,5 +36,15 @@ namespace BatchMuxer_Sub.Modules
             };
             return folderBrowser;
         }
+        public static VistaFileDialog NewFileBrowserDialog(string description, string filename)
+        {
+            var folderBrowser = new VistaOpenFileDialog()
+            {
+                CheckFileExists = true,
+                Title = description,
+                Filter = "mkvmerge.exe|mkvmerge.exe"
+            };
+            return folderBrowser;
+        }
     }
 }

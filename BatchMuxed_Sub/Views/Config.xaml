@@ -19,7 +19,7 @@
        </hc:SimpleStackPanel>
         <hc:ComboBox AutoComplete="True" DisplayMemberPath="Name" SelectedValuePath="Code" ItemsSource="{Binding Languages}"
                      hc:TitleElement.Title="Subtitle Language" hc:TitleElement.TitlePlacement="Left" hc:InfoElement.Necessary="True" 
-                     SelectedIndex="0" SelectedValue="{Binding LanguageCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Content="Save" />
+                     SelectedValue="{Binding LanguageCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Content="Save" Command="{Binding SaveCommand}"/>
     </hc:SimpleStackPanel>
 </UserControl>

@@ -7,8 +7,8 @@
         <ResourceDictionary>
             <hc:LangProvider x:Key="BatchMuxLangs"/>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml"/>
+                <hc:ThemeResources/>
+                <hc:Theme/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

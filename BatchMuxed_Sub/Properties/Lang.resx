@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
     <value>About</value>
@@ -126,17 +126,35 @@
   <data name="Browse" xml:space="preserve">
     <value>Browse</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ConfigSaved" xml:space="preserve">
+    <value>Configurations saved!</value>
+  </data>
   <data name="Configuration" xml:space="preserve">
     <value>Configuration</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
   <data name="EnterMkvMergePath" xml:space="preserve">
     <value>Enter MKVMerge path where 'mkvmerge.exe' is present (ex: C:\\mkvtoolnix-64-bit-49.0.0\mkvtoolnix)</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
   </data>
   <data name="MkvMergeExeNotFound" xml:space="preserve">
     <value>mkvmerge.exe not found in this directory</value>
   </data>
   <data name="MkvMergePath" xml:space="preserve">
     <value>MKVMerge Path</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
@@ -149,5 +167,8 @@
   </data>
   <data name="SubtitleLanguage" xml:space="preserve">
     <value>Subtitle Language</value>
+  </data>
+  <data name="Successful" xml:space="preserve">
+    <value>Successful</value>
   </data>
 </root>

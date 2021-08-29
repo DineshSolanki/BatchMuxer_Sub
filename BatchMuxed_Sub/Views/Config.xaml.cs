@@ -17,9 +17,9 @@ namespace BatchMuxer_Sub.Views
 
         private static OperationResult<bool> VerifyFunc(string text)
         {
-            return Directory.Exists(text) && File.Exists(Path.Combine(text, "mkvmerge.exe"))
+            return Path.GetFileName(text).ToLower() == "mkvmerge.exe" && File.Exists(text) 
                 ? OperationResult.Success()
-                : OperationResult.Failed("mkvmerge.exe not found in this directory");
+                : OperationResult.Failed("please input full path including mkvmerge.exe");
         }
     }
 }

@@ -88,6 +88,24 @@ namespace BatchMuxer_Sub.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configurations saved!.
+        /// </summary>
+        internal static string ConfigSaved {
+            get {
+                return ResourceManager.GetString("ConfigSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configuration.
         /// </summary>
         internal static string Configuration {
@@ -97,11 +115,38 @@ namespace BatchMuxer_Sub.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        internal static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter MKVMerge path where &apos;mkvmerge.exe&apos; is present (ex: C:\\mkvtoolnix-64-bit-49.0.0\mkvtoolnix).
         /// </summary>
         internal static string EnterMkvMergePath {
             get {
                 return ResourceManager.GetString("EnterMkvMergePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        internal static string Home {
+            get {
+                return ResourceManager.GetString("Home", resourceCulture);
             }
         }
         
@@ -120,6 +165,15 @@ namespace BatchMuxer_Sub.Properties {
         internal static string MkvMergePath {
             get {
                 return ResourceManager.GetString("MkvMergePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         
@@ -156,6 +210,15 @@ namespace BatchMuxer_Sub.Properties {
         internal static string SubtitleLanguage {
             get {
                 return ResourceManager.GetString("SubtitleLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successful.
+        /// </summary>
+        internal static string Successful {
+            get {
+                return ResourceManager.GetString("Successful", resourceCulture);
             }
         }
     }
