@@ -70,6 +70,15 @@ namespace BatchMuxer_Sub.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All media processed.
+        /// </summary>
+        internal static string AllMediaProcessed {
+            get {
+                return ResourceManager.GetString("AllMediaProcessed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auto clean media?.
         /// </summary>
         internal static string AutoCleanMedia {
@@ -174,6 +183,15 @@ namespace BatchMuxer_Sub.Properties {
         internal static string MediaPath {
             get {
                 return ResourceManager.GetString("MediaPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Merging Subtitles and media file.
+        /// </summary>
+        internal static string MergingSubAndMedia {
+            get {
+                return ResourceManager.GetString("MergingSubAndMedia", resourceCulture);
             }
         }
         

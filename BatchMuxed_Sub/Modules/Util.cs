@@ -7,7 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BatchMuxer_Sub.ProcessUtil;
+using HandyControl.Controls;
+using HandyControl.Data;
 using HandyControl.Tools;
+using Microsoft.VisualBasic.FileIO;
 using Ookii.Dialogs.Wpf;
 
 namespace BatchMuxer_Sub.Modules
@@ -119,6 +122,32 @@ namespace BatchMuxer_Sub.Modules
             ProcessOutputReader por = new();
             por.OutputChanged += outputHandler;
             return await p.ExecuteAsync(ps, por);
+        }
+        public static void DeleteAndMove(string path, FileInfo[] fi)
+        {
+            foreach (var f in fi)
+            {
+                var subtitle = f.Name.Replace(f.Extension, ".srt");
+                var subtitlePath = f.FullName.Replace(f.Extension, ".srt");
+                try
+                {
+                    if (!File.Exists(Path.Combine(path, subtitle)) ||
+                        !File.Exists(Path.Combine(path, "muxed", f.Name))) continue;
+                    FileSystem.DeleteFile(f.FullName,UIOption.AllDialogs,RecycleOption.SendToRecycleBin);
+                    File.Delete(subtitlePath);
+                    FileSystem.MoveFile(Path.Combine(path ,"muxed",f.Name), f.FullName,UIOption.AllDialogs);
+                }
+                catch (Exception e)
+                {
+                    Growl.Error(e.Message);
+                }
+            }
+            if (IsDirectoryEmpty(Path.Combine(path, "muxed")))
+                Directory.Delete(Path.Combine(path, "muxed"));
+        }
+        public static bool IsDirectoryEmpty(string path)
+        {
+            return !Directory.EnumerateFileSystemEntries(path).Any();
         }
     }
 }

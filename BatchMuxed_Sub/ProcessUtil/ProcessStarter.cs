@@ -187,7 +187,7 @@ namespace BatchMuxer_Sub.ProcessUtil
         finally { var disposeTask = Task.Factory.StartNew(() => process.Dispose()); }    // start in new Task because disposing sometimes waits until the process is finished, for example while executing following command: ping -n 30 -w 1000 127.0.0.1 > nul
         if (result.ExitCode == -1073741510 && !result.WasCancelled)
         {
-            error.AppendLine($"Process exited by user!");
+            error.AppendLine("Process exited by user!");
         }
         result.WasSuccessful = !result.WasCancelled && result.ExitCode == 0;
         result.Output = output.ToString();

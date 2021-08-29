@@ -12,6 +12,8 @@ using System.Windows.Threading;
 using Prism.Regions;
 using BatchMuxer_Sub.Modules;
 using BatchMuxer_Sub.ProcessUtil;
+using HandyControl.Controls;
+using HandyControl.Data;
 using HandyControl.Tools;
 using HandyControl.Tools.Extension;
 
@@ -23,8 +25,6 @@ namespace BatchMuxer_Sub.ViewModels
         private static readonly string[] Extensions = { ".mkv", ".webm", ".mp4" };
         private string _mkvMergePath = "";
         public string MkvMergePath { get => _mkvMergePath; set => SetProperty(ref _mkvMergePath, value); }
-
-        private string _languageCode;
 
         private int _totalTasks;
         public int TotalTasks
@@ -40,11 +40,18 @@ namespace BatchMuxer_Sub.ViewModels
             set => SetProperty(ref _completedTasks, value);
         }
 
-        private string _cmdOutput;
+        private string _cmdOutput = "";
         public string CmdOutput
         {
             get => _cmdOutput;
             set => SetProperty(ref _cmdOutput, value);
+        }
+
+        private string _lastTask = "Waking up mkvMerge";
+        public string LastTask
+        {
+            get => _lastTask;
+            set => SetProperty(ref _lastTask, value);
         }
 
         private bool _isBusy;
@@ -55,14 +62,27 @@ namespace BatchMuxer_Sub.ViewModels
 
         public DelegateCommand BrowseForMediaPath { get; }
         public DelegateCommand StartMuxCommand { get; }
+        public DelegateCommand CleanDirectoryCommand { get; }
         private readonly AppConfig _settings = GlobalDataHelper.Load<AppConfig>();
+        private FileInfo[] _files;
         public HomeWindowViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
             MkvMergePath = _settings.MkvMergePath;
-            _languageCode = _settings.SubtitleCode;
             BrowseForMediaPath = new DelegateCommand(BrowseForMedia);
             StartMuxCommand = new DelegateCommand(StartMuxing);
+            CleanDirectoryCommand = new DelegateCommand(CleanDirectory);
+        }
+
+        private void CleanDirectory()
+        {
+
+            if (!Directory.Exists(MediaPath)) return;
+            var files = MediaPath.ToDirectoryInfo().EnumerateFiles()
+                .Where(f => Extensions.Contains(f.Extension.ToLower()))
+                .ToArray();
+            Util.DeleteAndMove(MediaPath, files);
+            Growl.SuccessGlobal("Directory Cleaned up!");
         }
 
         private async void StartMuxing()
@@ -71,24 +91,38 @@ namespace BatchMuxer_Sub.ViewModels
             if (Path.GetFileName(MkvMergePath).ToLower() != "mkvmerge.exe" || !File.Exists(MkvMergePath)) return;
             IsBusy = true;
             var directoryInfo = MediaPath.ToDirectoryInfo();
-            var files = directoryInfo.EnumerateFiles()
+            _files = directoryInfo.EnumerateFiles()
                 .Where(f => Extensions.Contains(f.Extension.ToLower()))
                 .ToArray();
-            Util.RenameFiles(files);
-            var tasks = files.Select(fi => Util.ProcessFileAsync(fi, MediaPath)).ToList();
+            Util.RenameFiles(_files);
+            var tasks = _files.Select(fi => Util.ProcessFileAsync(fi, MediaPath, (_, args) => CmdOutput=args.Text)).ToList();
             TotalTasks = tasks.Count;
             tasks.ForEach(tsk => tsk.ContinueWith(taskinfo =>
             {
-                if (taskinfo.Result?.AdditionalInfo is not null)
-                {
-                    CmdOutput = taskinfo.Result.AdditionalInfo;
-                }
-                
+                if (taskinfo.Result is null) return;
                 CompletedTasks++;
-            }));
-            var __ = await Task.WhenAll(tasks); 
-            IsBusy = false;
+                if (taskinfo.Result.AdditionalInfo is not null)
+                {
+                    LastTask = taskinfo.Result.AdditionalInfo;
+                }
 
+
+            }));
+            var __ = await Task.WhenAll(tasks);
+            Growl.SuccessGlobal(
+                new GrowlInfo
+                {
+                    Message = "All media processed",
+                    ShowDateTime = false,
+                    StaysOpen = true
+                });
+            IsBusy = false;
+            if (_settings.IsAutoClean)
+            {
+                CleanDirectory();
+            }
+            LastTask = "Waking up mkvMerge";
+            CmdOutput = "";
         }
 
         private void BrowseForMedia()

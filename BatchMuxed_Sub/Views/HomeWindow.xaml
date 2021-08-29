@@ -13,15 +13,16 @@
         <hc:BusyIndicator.BusyContentTemplate>
             <DataTemplate>
                 <StackPanel Margin="4" HorizontalAlignment="Stretch">
-                    <!--<TextBlock Text="Merging Subtitles and media file" FontWeight="Bold" HorizontalAlignment="Stretch"/>-->
+                    <TextBlock Text="Merging Subtitles and media file" FontWeight="Bold" HorizontalAlignment="Stretch"/>
                     <StackPanel Margin="4">
                         <TextBlock FontWeight="Bold">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}Last Completed task:{0}">
-                                    <Binding Path="DataContext.CmdOutput" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}"/>
+                                    <Binding Path="DataContext.LastTask" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}"/>
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
+                        <hc:TextBox Text="{Binding DataContext.CmdOutput,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="10"/>
                         <ProgressBar Style="{DynamicResource ProgressBarInfo}"
                                      Value="{Binding Path=DataContext.CompletedTasks,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                      Maximum="{Binding Path=DataContext.TotalTasks,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
@@ -41,13 +42,14 @@
         <hc:SimpleStackPanel>
             <hc:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <hc:TextBox x:Name="txtMediaPath" hc:TitleElement.Title="Media Path" hc:TitleElement.TitlePlacement="Left"
-                            Margin="20"
+                            Margin="20,20,1,20"
                             hc:InfoElement.Placeholder="Enter path where video and subtitle files are located." 
                             hc:InfoElement.Necessary="True" Text="{Binding MediaPath}"/>
                 <Button Content="Browse" Command="{Binding BrowseForMediaPath}"/>
             </hc:SimpleStackPanel>
             <Button Content="Start Muxing/Merging" Command="{Binding StartMuxCommand}"
                     IsEnabled="{Binding Path=IsError, ElementName=txtMediaPath, Converter={StaticResource Boolean2BooleanReConverter}}"/>
+            <Button Content="Clean up directory" Command="{Binding CleanDirectoryCommand}" Margin="10"/>
         </hc:SimpleStackPanel>
     </hc:BusyIndicator>
 </UserControl>
