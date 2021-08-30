@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using BatchMuxer_Sub.ProcessUtil;
 using HandyControl.Controls;
-using HandyControl.Data;
-using HandyControl.Tools;
 using Microsoft.VisualBasic.FileIO;
 using Ookii.Dialogs.Wpf;
 
@@ -17,7 +13,6 @@ namespace BatchMuxer_Sub.Modules
 {
     public static class Util
     {
-        private static readonly AppConfig Settings = GlobalDataHelper.Load<AppConfig>();
         public static DataTable CreateLanguageDt()
         {
             const string languageCodes = "aa,ab,ae,af,ak,am,an,ar,as,av,ay,az,ba,be,bg,bh,bi,bm,bn,bo,br,bs,ca,ce,ch,co,cr,cs,cu,cv,cy,da,de,dv,dz,ee,el,en,eo,es,et,eu,fa,ff,fi,fj,fo,fr,fy,ga,gd,gl,gn,gu,gv,ha,he,hi,ho,hr,ht,hu,hy,hz,ia,id,ie,ig,ii,ik,io,is,it,iu,ja,jv,ka,kg,ki,kj,kk,kl,km,kn,ko,kr,ks,ku,kv,kw,ky,la,lb,lg,li,ln,lo,lt,lu,lv,mg,mh,mi,mk,ml,mn,mr,ms,mt,my,na,nb,nd,ne,ng,nl,nn,no,nr,nv,ny,oc,oj,om,or,os,pa,pi,pl,ps,pt,qu,rm,rn,ro,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,so,sq,sr,ss,st,su,sv,sw,ta,te,tg,th,ti,tk,tl,tn,to,tr,ts,tt,tw,ty,ug,uk,ur,uz,ve,vi,vo,wa,wo,xh,yi,yo,za,zh,zu";
@@ -89,7 +84,7 @@ namespace BatchMuxer_Sub.Modules
             {
                 WorkingDirectory = path,
                 Arguments =
-                    $@"/c """"{Settings.MkvMergePath}"" -o {output} --default-track 0 --language 0:{Settings.SubtitleCode} ""{subtitle}"" ""{fi.Name}""",
+                    $@"/c """"{Services.Settings.MkvMergePath}"" -o {output} --default-track 0 --language 0:{Services.Settings.SubtitleCode} ""{subtitle}"" ""{fi.Name}""",
                 CreateNoWindow = true,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -114,7 +109,7 @@ namespace BatchMuxer_Sub.Modules
             {
                 FileName = "CMD.EXE",
                 WorkingDirectory = path,
-                Arguments = $@"/c """"{Settings.MkvMergePath}"" -o {output} --default-track 0 --language 0:{Settings.SubtitleCode} ""{subtitle}"" ""{fi.Name}""",
+                Arguments = $@"/c """"{Services.Settings.MkvMergePath}"" -o {output} --default-track 0 --language 0:{Services.Settings.SubtitleCode} ""{subtitle}"" ""{fi.Name}""",
                 ReadOutput = true,
                 AdditionalInfo = fi.Name
             };

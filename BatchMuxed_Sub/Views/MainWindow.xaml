@@ -11,22 +11,39 @@
              Title="{Binding Title}"
              Style="{StaticResource WindowWin10}"
              ShowTitle="True"
-             Height="450"
-             Width="800"
+             Height="204"
+             Width="868"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <hc:Window.NonClientAreaContent>
         <StackPanel Height="29">
-            <Menu HorizontalAlignment="Left">
-                <MenuItem Header="Home" Command="{Binding NavigateCommand}" CommandParameter="Home"/>
-                <MenuItem Header="Configuration">
-                    <MenuItem Header="Settings" Command="{Binding NavigateCommand}" CommandParameter="Config"/>
-                    <MenuItem Header="Auto clean media?" ToolTip="This will auto delete the original subtitle and media"
-                              IsCheckable="True" IsChecked="{Binding IsAutoClean}"/>
+            <Menu HorizontalAlignment="Left" Margin="10,0,0,0">
+                <MenuItem Header="Auto clean media?" ToolTip="This will auto delete the original subtitle and media"
+                          IsCheckable="True" IsChecked="{Binding IsAutoClean}">
+                    <MenuItem.Icon>
+                        <Image Source="../Resources/clean.png"/>
+                    </MenuItem.Icon>
                 </MenuItem>
             </Menu>
         </StackPanel>
     </hc:Window.NonClientAreaContent>
     <DockPanel>
+        <hc:SideMenu>
+            <hc:Interaction.Triggers>
+                <hc:EventTrigger EventName="SelectionChanged">
+                    <hc:EventToCommand Command="{Binding SwitchItemCommand}" PassEventArgsToCommand="True" />
+                </hc:EventTrigger>
+            </hc:Interaction.Triggers>
+            <hc:SideMenuItem Header="Home" Tag="Home" Margin="0,0,10,0">
+                <hc:SideMenuItem.Icon>
+                    <Image Source="../Resources/smart_home.png" Width="24" Height="24"/>
+                </hc:SideMenuItem.Icon>
+            </hc:SideMenuItem>
+            <hc:SideMenuItem Header="Configuration" Tag="Config" Margin="0,0,10,0">
+                <hc:SideMenuItem.Icon>
+                    <Image Source="../Resources/config.png" Width="24" Height="24"/>
+                </hc:SideMenuItem.Icon>
+            </hc:SideMenuItem>
+        </hc:SideMenu>
         <ContentControl prism:RegionManager.RegionName="ContentRegion" Margin="5"/>
     </DockPanel>
 </hc:Window>

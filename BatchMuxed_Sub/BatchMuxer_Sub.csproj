@@ -12,6 +12,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\clean.png" />
+    <None Remove="Resources\config.png" />
+    <None Remove="Resources\merge.png" />
+    <None Remove="Resources\smart_home.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +40,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Lang.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\clean.png" />
+    <Resource Include="Resources\config.png" />
+    <Resource Include="Resources\merge.png" />
+    <Resource Include="Resources\smart_home.png" />
   </ItemGroup>
 
 </Project>

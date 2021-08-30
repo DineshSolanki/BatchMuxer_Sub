@@ -1,17 +1,10 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
 using Prism.Regions;
 using BatchMuxer_Sub.Modules;
-using BatchMuxer_Sub.ProcessUtil;
 using HandyControl.Controls;
 using HandyControl.Data;
 using HandyControl.Tools;
@@ -63,12 +56,11 @@ namespace BatchMuxer_Sub.ViewModels
         public DelegateCommand BrowseForMediaPath { get; }
         public DelegateCommand StartMuxCommand { get; }
         public DelegateCommand CleanDirectoryCommand { get; }
-        private readonly AppConfig _settings = GlobalDataHelper.Load<AppConfig>();
         private FileInfo[] _files;
         public HomeWindowViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
-            MkvMergePath = _settings.MkvMergePath;
+            MkvMergePath = Services.Settings.MkvMergePath;
             BrowseForMediaPath = new DelegateCommand(BrowseForMedia);
             StartMuxCommand = new DelegateCommand(StartMuxing);
             CleanDirectoryCommand = new DelegateCommand(CleanDirectory);
@@ -117,7 +109,7 @@ namespace BatchMuxer_Sub.ViewModels
                     StaysOpen = true
                 });
             IsBusy = false;
-            if (_settings.IsAutoClean)
+            if (Services.Settings.IsAutoClean)
             {
                 CleanDirectory();
             }

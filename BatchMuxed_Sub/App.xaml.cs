@@ -1,5 +1,6 @@
 ﻿using BatchMuxer_Sub.Views;
 using Prism.Ioc;
+using Prism.Regions;
 
 namespace BatchMuxer_Sub
 {
@@ -15,6 +16,12 @@ namespace BatchMuxer_Sub
         protected override System.Windows.Window CreateShell()
         {
             return Container.Resolve<MainWindow>();
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            Container.Resolve<IRegionManager>().RegisterViewWithRegion("ContentRegion", typeof(HomeWindow));
         }
     }
 }

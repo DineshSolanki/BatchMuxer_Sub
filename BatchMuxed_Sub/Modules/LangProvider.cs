@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using BatchMuxer_Sub.Properties;
 using HandyControl.Tools;
 
 namespace BatchMuxer_Sub.Properties.Langs

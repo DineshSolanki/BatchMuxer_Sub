@@ -1,8 +1,10 @@
-﻿using BatchMuxer_Sub.Modules;
-using HandyControl.Tools;
+﻿using System;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
+using System.Windows.Input;
+using HandyControl.Controls;
+using HandyControl.Data;
 
 namespace BatchMuxer_Sub.ViewModels
 {
@@ -10,20 +12,19 @@ namespace BatchMuxer_Sub.ViewModels
     {
         private readonly IRegionManager _regionManager;
 
-        private readonly AppConfig _settings = GlobalDataHelper.Load<AppConfig>();
         private string _title = "BatchMuxer_Subtitle";
         public string Title
         {
             get => _title;
             set => SetProperty(ref _title, value);
         }
-        public DelegateCommand<string> NavigateCommand { get; private set; }
+        public DelegateCommand<string> NavigateCommand { get; }
         public MainWindowViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
             NavigateCommand = new DelegateCommand<string>(Navigate);
-            IsAutoClean = _settings.IsAutoClean;
-            Navigate("Home");
+            SwitchItemCommand = new DelegateCommand<FunctionEventArgs<object>>(SwitchItem);
+            IsAutoClean = Services.Settings.IsAutoClean;
         }
         private void Navigate(string navigatePath)
         {
@@ -38,9 +39,16 @@ namespace BatchMuxer_Sub.ViewModels
             set
             {
                 SetProperty(ref _isAutoClean, value);
-                _settings.IsAutoClean = value;
-                _settings.SaveAsync();
+                Services.Settings.IsAutoClean = value;
+                Services.Settings.SaveAsync();
             }
+        }
+
+        public DelegateCommand<FunctionEventArgs<object>> SwitchItemCommand { get; }
+
+        private void SwitchItem(FunctionEventArgs<object> args)
+        {
+            Navigate((args.Info as SideMenuItem)?.Tag.ToString());
         }
     }
 }

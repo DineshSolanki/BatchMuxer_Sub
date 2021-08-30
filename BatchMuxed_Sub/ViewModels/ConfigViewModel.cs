@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Data;
+﻿using System.Data;
 using System.IO;
 using BatchMuxer_Sub.Modules;
 using HandyControl.Controls;
@@ -18,12 +16,11 @@ namespace BatchMuxer_Sub.ViewModels
             BrowseForMkvMerge = new DelegateCommand(BrowseMkvMergePath);
             SaveCommand = new DelegateCommand(Save);
             _regionManager = manager;
-            MkvMergePath = _settings.MkvMergePath;
+            MkvMergePath = Services.Settings.MkvMergePath;
             _languages=Util.CreateLanguageDt();
-            _languageCode = _settings.SubtitleCode;
+            _languageCode = Services.Settings.SubtitleCode;
         }
         private readonly IRegionManager _regionManager;
-        private readonly AppConfig _settings = GlobalDataHelper.Load<AppConfig>();
         private DataTable _languages;
 
         public DataTable Languages { get => _languages; set => SetProperty(ref _languages, value); }
@@ -50,9 +47,9 @@ namespace BatchMuxer_Sub.ViewModels
         {
             if (File.Exists(MkvMergePath))
             {
-                _settings.MkvMergePath = MkvMergePath;
-                _settings.SubtitleCode = LanguageCode;
-                _settings.Save();
+                Services.Settings.MkvMergePath = MkvMergePath;
+                Services.Settings.SubtitleCode = LanguageCode;
+                Services.Settings.Save();
                 MessageBox.Show(CustomMessageBox.Info("Configurations saved!", "Successful"));
             }
             else
