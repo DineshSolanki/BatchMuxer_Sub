@@ -205,6 +205,15 @@ namespace BatchMuxer_Sub.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MkvMerge path is incorrect or not set!.
+        /// </summary>
+        internal static string MkvMergeNotSet {
+            get {
+                return ResourceManager.GetString("MkvMergeNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MKVMerge Path.
         /// </summary>
         internal static string MkvMergePath {

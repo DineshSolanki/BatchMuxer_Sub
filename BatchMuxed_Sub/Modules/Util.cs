@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
@@ -143,6 +144,20 @@ namespace BatchMuxer_Sub.Modules
         public static bool IsDirectoryEmpty(string path)
         {
             return !Directory.EnumerateFileSystemEntries(path).Any();
+        }
+
+        public static IDictionary<string, string> GetCmdArgs()
+        {
+            IDictionary<string, string> arguments = new Dictionary<string, string>(); 
+            string[] args = Environment.GetCommandLineArgs();
+        
+            for (var index = 1; index < args.Length; index += 2)
+            {
+                string arg = args[index].Replace("--", "");
+                arguments.Add(arg, args[index + 1]);
+            }
+
+            return arguments;
         }
     }
 }

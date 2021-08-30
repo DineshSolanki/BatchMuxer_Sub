@@ -64,6 +64,10 @@ namespace BatchMuxer_Sub.ViewModels
             BrowseForMediaPath = new DelegateCommand(BrowseForMedia);
             StartMuxCommand = new DelegateCommand(StartMuxing);
             CleanDirectoryCommand = new DelegateCommand(CleanDirectory);
+            var cmdArgs = Util.GetCmdArgs();
+            if (!cmdArgs.ContainsKey("path")) return;
+            MediaPath = Util.GetCmdArgs()["path"];
+            StartMuxing();
         }
 
         private void CleanDirectory()
@@ -80,7 +84,11 @@ namespace BatchMuxer_Sub.ViewModels
         private async void StartMuxing()
         {
             CompletedTasks = 0;
-            if (Path.GetFileName(MkvMergePath).ToLower() != "mkvmerge.exe" || !File.Exists(MkvMergePath)) return;
+            if (Path.GetFileName(MkvMergePath).ToLower() != "mkvmerge.exe" || !File.Exists(MkvMergePath))
+            {
+                MessageBox.Show(CustomMessageBox.Error("MkvMerge path is incorrect or not set!","Error"));
+                return;
+            }
             IsBusy = true;
             var directoryInfo = MediaPath.ToDirectoryInfo();
             _files = directoryInfo.EnumerateFiles()
