@@ -1,8 +1,11 @@
 name: Publish
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - "!*"
+    tags:
+      - "v*"
 jobs:
   build:
     runs-on: windows-latest
