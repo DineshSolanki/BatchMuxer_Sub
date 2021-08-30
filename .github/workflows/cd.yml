@@ -31,3 +31,5 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: "BatchMuxed_Sub*"
+      env:
+        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
