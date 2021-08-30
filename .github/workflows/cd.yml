@@ -16,12 +16,20 @@ jobs:
         dotnet-version: 5.0.x
     - name: Install dependencies
       run: dotnet restore "./BatchMuxed_Sub"
-    - name: Build code
-      run: dotnet build "./BatchMuxed_Sub" --configuration Release --no-restore
-    - name: Publish application
-      run: dotnet publish "./BatchMuxed_Sub" -c Release -o BatchMuxer_Sub
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v2
+    - name: Build
+      shell: bash
+      run: |
+          tag=$(git describe --tags --abbrev=0)
+          release_name="BatchMuxed_Sub-$tag-win-x64"
+          # Build everything
+          -r linux-x64 -p:PublishSingleFile=true --self-contained false
+          dotnet publish ./BatchMuxed_Sub -r win-x64 -p:PublishSingleFile=true --self-contained false -c Release -o "$release_name"
+          # Pack files
+          7z a -tzip "${release_name}.zip" "./${release_name}/*"
+          # Delete output directory
+          rm -r "$release_name"
+          
+    - name: Publish
+      uses: softprops/action-gh-release@v1
       with:
-       name: my-artifact
-       path: "./BatchMuxed_Sub" 
+        files: "BatchMuxed_Sub*"
