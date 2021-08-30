@@ -114,7 +114,7 @@ namespace BatchMuxer_Sub.ViewModels
                 {
                     Message = "All media processed",
                     ShowDateTime = false,
-                    StaysOpen = true
+                    StaysOpen = false
                 });
             IsBusy = false;
             if (Services.Settings.IsAutoClean)

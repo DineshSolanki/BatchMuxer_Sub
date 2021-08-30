@@ -129,9 +129,9 @@ namespace BatchMuxer_Sub.Modules
                 {
                     if (!File.Exists(Path.Combine(path, subtitle)) ||
                         !File.Exists(Path.Combine(path, "muxed", f.Name))) continue;
-                    FileSystem.DeleteFile(f.FullName,UIOption.AllDialogs,RecycleOption.SendToRecycleBin);
+                    FileSystem.DeleteFile(f.FullName, UIOption.AllDialogs, RecycleOption.SendToRecycleBin);
                     File.Delete(subtitlePath);
-                    FileSystem.MoveFile(Path.Combine(path ,"muxed",f.Name), f.FullName,UIOption.AllDialogs);
+                    FileSystem.MoveFile(Path.Combine(path, "muxed", f.Name), f.FullName, UIOption.AllDialogs);
                 }
                 catch (Exception e)
                 {
@@ -148,16 +148,25 @@ namespace BatchMuxer_Sub.Modules
 
         public static IDictionary<string, string> GetCmdArgs()
         {
-            IDictionary<string, string> arguments = new Dictionary<string, string>(); 
+            IDictionary<string, string> arguments = new Dictionary<string, string>();
             string[] args = Environment.GetCommandLineArgs();
-        
+
             for (var index = 1; index < args.Length; index += 2)
             {
                 string arg = args[index].Replace("--", "");
                 arguments.Add(arg, args[index + 1]);
             }
-
             return arguments;
+        }
+
+        public static void CreateFile(string fullFilePath)
+        {
+            var fileName = Path.GetFileName(fullFilePath);
+            var pathWithoutFileName = fullFilePath.Replace(fileName, "");
+            Directory.CreateDirectory(pathWithoutFileName);
+            if (string.IsNullOrEmpty(fileName)) return;
+            File.Create(Path.Combine(pathWithoutFileName, fileName));
+
         }
     }
 }
