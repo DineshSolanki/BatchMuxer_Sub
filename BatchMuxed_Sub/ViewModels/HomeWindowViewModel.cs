@@ -40,7 +40,7 @@ namespace BatchMuxer_Sub.ViewModels
             set => SetProperty(ref _cmdOutput, value);
         }
 
-        private string _lastTask = "Waking up mkvMerge";
+        private string _lastTask = "Processing...";
         public string LastTask
         {
             get => _lastTask;
@@ -99,29 +99,38 @@ namespace BatchMuxer_Sub.ViewModels
             TotalTasks = tasks.Count;
             tasks.ForEach(tsk => tsk.ContinueWith(taskinfo =>
             {
+                var fileName = "muxedFile.log";
                 if (taskinfo.Result is null) return;
                 CompletedTasks++;
                 if (taskinfo.Result.AdditionalInfo is not null)
                 {
-                    LastTask = taskinfo.Result.AdditionalInfo;
+                    fileName = LastTask = taskinfo.Result.AdditionalInfo;
                 }
 
-
+                if (string.IsNullOrEmpty(taskinfo.Result.Output)) return;
+                fileName = $"{fileName.Truncate(10,"")}.log";
+                Util.WriteToLogsFolder(fileName,taskinfo.Result.Output);
             }));
             var __ = await Task.WhenAll(tasks);
-            Growl.SuccessGlobal(
+            Growl.AskGlobal(
                 new GrowlInfo
                 {
-                    Message = "All media processed",
+                    Message = "All media processed \n Would you like to open Logs folder?",
                     ShowDateTime = false,
-                    StaysOpen = false
+                    StaysOpen = false,
+                    ActionBeforeClose = isConfirmed =>
+                    {
+                        if(isConfirmed) 
+                            Util.StartAnyProcess(Util.GetLogsFolder());
+                        return true;
+                    }
                 });
             IsBusy = false;
             if (Services.Settings.IsAutoClean)
             {
                 CleanDirectory();
             }
-            LastTask = "Waking up mkvMerge";
+            LastTask = "Processing...";
             CmdOutput = "";
         }
 
@@ -132,7 +141,5 @@ namespace BatchMuxer_Sub.ViewModels
             if (dialogResult != null && (bool)!dialogResult) return;
             MediaPath = folderBrowserDialog.SelectedPath;
         }
-
-
     }
 }

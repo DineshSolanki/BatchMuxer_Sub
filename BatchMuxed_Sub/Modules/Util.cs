@@ -161,12 +161,34 @@ namespace BatchMuxer_Sub.Modules
 
         public static void CreateFile(string fullFilePath)
         {
+            if (File.Exists(fullFilePath))
+            {
+                return;
+            }
             var fileName = Path.GetFileName(fullFilePath);
             var pathWithoutFileName = fullFilePath.Replace(fileName, "");
             Directory.CreateDirectory(pathWithoutFileName);
             if (string.IsNullOrEmpty(fileName)) return;
             File.Create(Path.Combine(pathWithoutFileName, fileName));
-
         }
+
+        public static async void WriteToLogsFolder(string fileName, string data)
+        {
+            string logsFolder = GetLogsFolder();
+            var fullPath = Path.Combine(logsFolder, fileName);
+            if (!Directory.Exists(logsFolder))
+            {
+                Directory.CreateDirectory(logsFolder);
+            }
+            await File.WriteAllTextAsync(fullPath, data);
+        }
+
+        public static string GetLogsFolder() => Path.Combine(GetAppFolder(), "logs");
+        public static string GetAppFolder() =>
+            new Uri(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)!).LocalPath;
+        public static void StartAnyProcess(string processName) => Process.Start(new ProcessStartInfo(processName)
+        {
+            UseShellExecute = true
+        });
     }
 }

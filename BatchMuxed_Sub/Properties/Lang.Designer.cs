@@ -232,6 +232,15 @@ namespace BatchMuxer_Sub.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Processing....
+        /// </summary>
+        internal static string Processing___ {
+            get {
+                return ResourceManager.GetString("Processing...", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string Save {
