@@ -10,9 +10,12 @@ jobs:
     runs-on: [windows-latest]
     steps:
       - name: Checkout
+        uses: actions/checkout@v2
+      - name: build
         uses: actions/setup-dotnet@v1
         with:
-         dotnet-version: '5.x.x'
+          dotnet-version: '5.x.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+          
       - name: Build DotNET
         run: |
            cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
