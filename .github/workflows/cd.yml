@@ -1,9 +1,8 @@
-name: .NET
+name: Publish
+
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ main ]
+  release:
+    types: [published]
 jobs:
   build:
     runs-on: windows-latest
@@ -22,7 +21,6 @@ jobs:
           tag=$(git describe --tags --abbrev=0)
           release_name="BatchMuxed_Sub-$tag-win-x64"
           # Build everything
-          -r linux-x64 -p:PublishSingleFile=true --self-contained false
           dotnet publish ./BatchMuxed_Sub -r win-x64 -p:PublishSingleFile=true --self-contained false -c Release -o "$release_name"
           # Pack files
           7z a -tzip "${release_name}.zip" "./${release_name}/*"
