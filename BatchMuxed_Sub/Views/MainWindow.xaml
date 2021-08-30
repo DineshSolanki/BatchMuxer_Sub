@@ -23,6 +23,16 @@
                         <Image Source="../Resources/clean.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <ToggleButton BorderThickness="0" IsChecked="{Binding IsIntegratedInExplorer,Mode=TwoWay}" Height="22" Style="{StaticResource ToggleButtonFlip}">
+                    <hc:StatusSwitchElement.CheckedElement>
+                        <Border Background="{DynamicResource PrimaryBrush}">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="On" ToolTip="Explorer integration enabled." Foreground="{DynamicResource TextIconBrush}"/>
+                        </Border>
+                    </hc:StatusSwitchElement.CheckedElement>
+                    <Border Background="{DynamicResource DangerBrush}">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Off" ToolTip="Explorer integration disabled." Foreground="{DynamicResource TextIconBrush}"/>
+                    </Border>
+                </ToggleButton>
             </Menu>
         </StackPanel>
     </hc:Window.NonClientAreaContent>

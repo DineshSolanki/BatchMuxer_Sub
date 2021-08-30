@@ -2,7 +2,6 @@
 using System.IO;
 using BatchMuxer_Sub.Modules;
 using HandyControl.Controls;
-using HandyControl.Tools;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;

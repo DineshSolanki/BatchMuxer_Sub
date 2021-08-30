@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BatchMuxer_Sub.ProcessUtil;
 using HandyControl.Controls;
+using HandyControl.Tools;
 using Microsoft.VisualBasic.FileIO;
 using Ookii.Dialogs.Wpf;
 
@@ -190,5 +191,21 @@ namespace BatchMuxer_Sub.Modules
         {
             UseShellExecute = true
         });
+
+        public static void AddToContextMenu()
+        {
+            string commandS = $@"""{Process.GetCurrentProcess().MainModule?.FileName}"" --path ""%1""";
+            ApplicationHelper.RegisterContextMenuToDirectory("Merge Subtitles", commandS);
+            commandS = $@"""{Process.GetCurrentProcess().MainModule?.FileName}"" --path ""%V""";
+            ApplicationHelper.RegisterContextMenuToBackground("Merge Subtitles", commandS);
+            //Growl.SuccessGlobal("Merge Subtitle option added to context menu!");
+        }
+
+        public static void RemoveFromContextMenu()
+        {
+            ApplicationHelper.UnRegisterContextMenuFromDirectory("Merge Subtitles");
+            ApplicationHelper.UnRegisterCascadeContextMenuFromBackground("Merge Subtitles");
+            //Growl.InfoGlobal("Merge Subtitle option removed from context menu!");
+        }
     }
 }

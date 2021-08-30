@@ -1,4 +1,5 @@
-﻿using BatchMuxer_Sub.Modules;
+﻿using System.Reflection;
+using BatchMuxer_Sub.Modules;
 using HandyControl.Tools;
 using Jot;
 
@@ -8,5 +9,6 @@ namespace BatchMuxer_Sub
     {
         public static readonly Tracker Tracker = new();
         public static AppConfig Settings = GlobalDataHelper.Load<AppConfig>();
+        public static Assembly Assembly = Assembly.GetExecutingAssembly();
     }
 }

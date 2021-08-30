@@ -160,6 +160,24 @@ namespace BatchMuxer_Sub.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Explorer integration disabled..
+        /// </summary>
+        internal static string ExpIntDisabled {
+            get {
+                return ResourceManager.GetString("ExpIntDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explorer integration enabled..
+        /// </summary>
+        internal static string ExpIntEnabled {
+            get {
+                return ResourceManager.GetString("ExpIntEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide details.
         /// </summary>
         internal static string HideDetails {

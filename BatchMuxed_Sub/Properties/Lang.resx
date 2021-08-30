@@ -150,6 +150,12 @@
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="ExpIntDisabled" xml:space="preserve">
+    <value>Explorer integration disabled.</value>
+  </data>
+  <data name="ExpIntEnabled" xml:space="preserve">
+    <value>Explorer integration enabled.</value>
+  </data>
   <data name="HideDetails" xml:space="preserve">
     <value>Hide details</value>
   </data>

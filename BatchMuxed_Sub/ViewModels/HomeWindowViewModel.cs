@@ -7,7 +7,6 @@ using Prism.Regions;
 using BatchMuxer_Sub.Modules;
 using HandyControl.Controls;
 using HandyControl.Data;
-using HandyControl.Tools;
 using HandyControl.Tools.Extension;
 
 namespace BatchMuxer_Sub.ViewModels

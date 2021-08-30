@@ -12,7 +12,7 @@ namespace BatchMuxer_Sub.Modules
         public string MkvMergePath { get; set; } = "";
         public bool IsAutoClean { get; set; } = false;
         public string SubtitleCode = "en";
-
+        public bool IsIntegratedInExplorer { get; set; } = false;
         public override string FileName { get; set; } =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"AppConfig.json");
         public override JsonSerializerOptions JsonSerializerOptions { get; set; }
